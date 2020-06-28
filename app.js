@@ -27,11 +27,9 @@ app.use(express.static(publicPath))
 
 // Routes
 const indexRouter = require( './routes/index' ),
-      aboutRouter = require( './routes/about' ),
       postRouter = require( './routes/insert-user' )
 
-app.use( '/', indexRouter )
-app.use( '/about', aboutRouter )
+app.get( '/', indexRouter )
 
 app.post( '/insert-user', postRouter )
 
@@ -50,6 +48,5 @@ app.use( ( err, req, res, next ) => {
     res.status( err.status || 500 )
     res.render( 'error' )
 })
-
 
 module.exports = app
