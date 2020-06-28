@@ -1,5 +1,6 @@
 const express = require('express'),
-      router = express.Router()
+      router = express.Router(),
+      validator = require("email-validator");
 
 const mysql = require('mysql');
 const connection = mysql.createConnection({
@@ -11,20 +12,42 @@ const connection = mysql.createConnection({
 
 router.post( '/insert-user', (req, res, next) => {
     const { email, duration, time } = req.body
-    
+
     if( ! email || ! duration || ! time ) {
-        res.send( `so. you're probably wondering why i invited you here.` )
-        return
+        return res.send( { status: false, reason: 'An error occurred' } )
     }
 
-    connection.query( "CREATE TABLE IF NOT EXISTS users (id INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(id), DATE    DATE NOT NULL, VALUE   SMALLINT(4) UNSIGNED NOT NULL", function (error, results, fields) {
-        if (error) throw error;
-        console.log('The solution is: ', results[0].solution);
-    });
+    if( ! validator.validate( email ) ) {
+        return res.send( { status: false, reason: 'Please enter a valid email' } )
+    }
 
-    console.log(email);
-    console.log(duration);
-    console.log(time);
+    connection.query(
+        `CREATE TABLE IF NOT EXISTS users(
+            id INT NOT NULL AUTO_INCREMENT,
+            PRIMARY         KEY(id),
+            email           varchar(255) NOT NULL UNIQUE,
+            duration        varchar(10) NOT NULL,
+            time            varchar(5),
+            date_inserted   DATE NOT NULL
+        )`,
+        function ( error, results, fields) {
+            if ( error ) {
+                return res.send( { status: false, reason: 'Email already exists' } )
+            }
+        });
+
+    const now = new Date()
+
+    var user  = { email, duration, time, date_inserted: now };    
+
+    connection.query('INSERT INTO users SET ?', user, function ( error, results, fields ) {
+        if( error && error.code == 'ER_DUP_ENTRY' ) {
+            return res.send( { status: false, reason: 'Email already exists' } )
+        } else if( error ) {
+            return res.send( { status: false, reason: 'An error occurred' } )
+        }
+        return res.send( { status: true } )
+    });
 })
 
 module.exports = router

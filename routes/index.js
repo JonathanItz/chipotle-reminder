@@ -3,7 +3,7 @@ const express = require('express'),
 
 router.get( '/', (req, res, next) => {
     res.render( 'index', {
-        title: 'Chipoltendar'
+        title: 'Chipotle Reminder'
     })
 })
 
