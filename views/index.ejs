@@ -1,0 +1,39 @@
+<%- include( 'header' ) %>
+    <div class="container">
+
+        <div class="row">
+            <h1 class="twelve column"><%= title %> 🌯</h1>
+        </div>
+
+        <div class="row">
+            <div class="columns six">
+                <p>Are you ever so busy that you forget to order your daily Chipotle? Your knees feel weak. Arms are heavy. There's vomit on your sweater already, it's mom's spaghetti. The spaghetti was good but it didn't satisfy the everlonging desire that only a 5 pound Chipotle burrito with steak, pinto beans, tomato salsa, guac, roasted chili corn salsa, sour cream and lettuce would satisfy...</p>
+                <p>Anyways... this app reminds you to get Chipotle..</p>
+            </div>
+            <div class="columns six">
+                <form id="reminder-form" >
+
+                    <input type="text" name="email" placeholder="Email">
+    
+                    <select name="duration">
+                        <option value="daily">Daily</option>
+                        <optgroup label="weekly">
+                            <option value="sunday">Sunday</option>
+                            <option value="monday">Monday</option>
+                            <option value="tuesday">Tuesday</option>
+                            <option value="wednesday">Wednesday</option>
+                            <option value="thursday">Thursday</option>
+                            <option value="friday">Friday</option>
+                            <option value="saturday">Saturday</option>
+                        </optgroup>
+                    </select>
+                    <input type="time" value="08:00">
+                    <button>Submit</button>
+                </form>
+                <div class="errors"></div>
+                <div class="success"></div>
+            </div>
+        </div>
+
+    </div>
+<%- include( 'footer' ) %>

@@ -1,0 +1,93 @@
+@import 'includes/normalize';
+@import 'includes/skeleton';
+@import 'includes/selectric';
+
+$blue: #00b6ff;
+
+$primaryFont: 'Montserrat', sans-serif;
+
+body {
+    font-family: $primaryFont;
+}
+
+h1 {
+    padding: 3rem 0 1rem;
+    font-size: 4rem;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+#reminder-form {
+    margin-bottom: 0;
+    
+    input, select {
+        width: 100%;
+        background-color: #eaeaea;
+    }
+
+    input[ type=time ] {
+        margin-top: 1.5rem;
+        margin-bottom: 0;
+        height: 3.45rem;
+        width: calc(100% - 2.2rem );
+        padding: 0 1rem;
+        border: 1px solid #D1D1D1;
+        border-radius: 4px;
+        background-color: #eaeaea;
+        color: #6d6d6d;
+    }
+
+    .selectric {
+        background: none;
+        height: 38px;
+        background-color: #eaeaea;
+        border: 1px solid #D1D1D1;
+        border-radius: 4px;
+        box-shadow: none;
+        box-sizing: border-box;
+
+        span {
+            font-size: 1.4rem;
+            color: #6d6d6d;
+            letter-spacing: 0.5px;
+        }
+
+        .button {
+            background: none;
+            border: none;
+            padding: 0 15px;
+        }
+    }
+
+    button {
+        margin-top: 1.5rem;
+        position: relative;
+        width: 100%;
+
+        &:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 0;
+            height: 100%;
+            background: $blue;
+            top: 0;
+            left: 0;
+            transition: width 0.3s ease-in-out;
+            z-index: -1;
+        }
+
+        &:hover {
+            &:after {
+                width: 100%;
+            }
+        }
+    }
+}
+
+.errors {
+    color: #dc4848;
+}
+.success {
+    color: $blue;
+}

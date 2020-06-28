@@ -1,0 +1,12 @@
+<%- include('header.ejs') %>
+<div class="container">
+    <div class="row">
+        <div class="columns 12">
+            <h1><%= message %></h1>
+            <h2><%= error.status %></h2>
+            <p>Uh oh. Not good.</p>
+            <pre><%# error.stack %></pre>
+        </div>
+    </div>
+</div>
+<%- include( 'footer.ejs' ) %>
